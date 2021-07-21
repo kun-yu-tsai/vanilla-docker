@@ -25,8 +25,8 @@ services:
         # Transform the template into an actual file
         restart: unless-stopped
         command: >
-            /bin/bash -c "envsubst < /etc/nginx/fastcgi.conf.tpl > /etc/nginx/fastcgi.conf && nginx -g 'daemon off;' &&
-                   while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \'daemon off;\'"
+            /bin/bash -c "envsubst < /etc/nginx/fastcgi.conf.tpl > /etc/nginx/fastcgi.conf && nginx -g 'daemon off;'"
+            && "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
         container_name: "nginx"
         depends_on:
             - "php-fpm"
